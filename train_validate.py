@@ -31,6 +31,7 @@ logging.info("Artifact Location: {}".format(experiment.artifact_location))
 logging.info("Tags: {}".format(experiment.tags))
 logging.info("Lifecycle_stage: {}".format(experiment.lifecycle_stage))
 
+print('using MURIL')
 mlflow.tensorflow.autolog(every_n_iter=1, log_models=True, disable=False, exclusive=False)
 with mlflow.start_run(experiment_id=c.ML_FLOW_EXPERIMENT_ID):
     save_dir_path, tags, signature = train_test(epochs=args.epochs, eval_batch_size=args.batch_size, beta_1=args.beta_1,
