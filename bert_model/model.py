@@ -19,12 +19,12 @@ def train_test(epochs, eval_batch_size, epsilon=1e-7, init_lr=2e-5, beta_1=0.9, 
                        "init_lr": init_lr, "beta_1": beta_1, "beta_2": beta_2})
     
     """Create Features & Tokenize"""
-    tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', do_lower_case=True)
+    tokenizer = BertTokenizer.from_pretrained('google/muril-base-cased', do_lower_case=True)
     train_data = extract_features.retrieve_features(c.TRAIN_FILE, c.LABELS, c.MAX_SEQ_LENGTH, tokenizer,
                                                     c.LABEL_ID_PKL_FILE)
     
-    config = BertConfig.from_pretrained('bert-base-multilingual-cased', num_labels=len(c.LABELS))
-    model = TFBertForTokenClassification.from_pretrained("bert-base-multilingual-cased", config=config)
+    config = BertConfig.from_pretrained('google/muril-base-cased', num_labels=len(c.LABELS))
+    model = TFBertForTokenClassification.from_pretrained('google/muril-base-cased', config=config)
     model.summary()
     
     model.layers[-1].activation = tf.keras.activations.softmax
@@ -85,7 +85,7 @@ def train_test(epochs, eval_batch_size, epsilon=1e-7, init_lr=2e-5, beta_1=0.9, 
 def load_saved_model_test(eval_batch_size=32, model_path="96_64", file_path=os.path.join(c.PROCESSED_DATASET_DIR,
                                                                                          c.TEST_FILE)):
     """Create Features & Tokenize"""
-    tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', do_lower_case=True)
+    tokenizer = BertTokenizer.from_pretrained('google/muril-base-cased', do_lower_case=True)
 
     trained_model = TFBertForTokenClassification.from_pretrained(model_path)
 
